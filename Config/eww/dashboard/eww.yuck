@@ -1,0 +1,209 @@
+;; Dashboard Window - Fixed version
+(defwindow dashboard
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "400px"
+                      :height "100%"
+                      :anchor "top right")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "eww-dashboard"
+  (dashboard-content))
+
+;; Main Content
+(defwidget dashboard-content []
+  (box :class "dashboard-container"
+       :orientation "v"
+       :space-evenly false
+       :spacing 10
+    
+    ;; Header with close button
+    (box :class "header-section" 
+         :orientation "h" 
+         :space-evenly false
+      (label :class "dashboard-title" 
+             :text "System Dashboard" 
+             :halign "start" 
+             :hexpand true)
+      (button :class "close-btn" 
+              :onclick "eww --config ~/.config/eww/dashboard close dashboard" 
+              "✕"))
+    
+    (label :class "date-time" :text date_time)
+    
+    ;; System Resources
+    (box :class "section" :orientation "v" :spacing 5
+      (label :class "section-title" :text "󰍛 System Resources" :halign "start")
+      (cpu-widget)
+      (memory-widget)
+      (gpu-widget)
+      (storage-widget))
+    
+    ;; Temperature
+    (box :class "section" :orientation "v" :spacing 5
+      (label :class "section-title" :text " Temperature" :halign "start")
+      (temp-widget))
+    
+    ;; Music Player
+    (box :class "section" :orientation "v" :spacing 5
+      (label :class "section-title" :text "󰎆 Music Player" :halign "start")
+      (music-widget))
+    
+    ;; Network
+    (box :class "section" :orientation "v" :spacing 5
+      (label :class "section-title" :text "󰖩 Network" :halign "start")
+      (network-widget))
+    
+    ;; Weather
+    (box :class "section" :orientation "v" :spacing 5
+      (label :class "section-title" :text " Weather" :halign "start")
+      (weather-widget))
+    
+    ;; Quick Actions
+    (box :class "actions" :orientation "h" :spacing 5 :halign "center"
+      (button :class "action-btn" :onclick "kitty btop &" "󰕮")
+      (button :class "action-btn" :onclick "nm-connection-editor &" "󰖩")
+      (button :class "action-btn" :onclick "pavucontrol &" "󰕾"))))
+
+;; CPU Widget
+(defwidget cpu-widget []
+  (box :class "widget" :orientation "h" :space-evenly false
+    (label :class "widget-icon" :text "󰍛")
+    (box :orientation "v" :space-evenly false :hexpand true
+      (box :orientation "h"
+        (label :class "widget-label" :text "CPU" :halign "start" :hexpand true)
+        (label :class "widget-value" :text "${cpu_usage}%" :halign "end"))
+      (scale :class "widget-scale" 
+             :value cpu_usage 
+             :min 0 
+             :max 100 
+             :active false))
+    (label :class "temp-label" :text "${cpu_temp}°")))
+
+;; Memory Widget
+(defwidget memory-widget []
+  (box :class "widget" :orientation "h" :space-evenly false
+    (label :class "widget-icon" :text "󰾆")
+    (box :orientation "v" :space-evenly false :hexpand true
+      (box :orientation "h"
+        (label :class "widget-label" :text "Memory" :halign "start" :hexpand true)
+        (label :class "widget-value" :text "${mem_used}/${mem_total}GB" :halign "end"))
+      (scale :class "widget-scale" 
+             :value mem_usage 
+             :min 0 
+             :max 100 
+             :active false))))
+
+;; GPU Widget
+(defwidget gpu-widget []
+  (box :class "widget" :orientation "h" :space-evenly false
+    (label :class "widget-icon" :text "󰢮")
+    (box :orientation "v" :space-evenly false :hexpand true
+      (box :orientation "h"
+        (label :class "widget-label" :text "GPU" :halign "start" :hexpand true)
+        (label :class "widget-value" :text "${gpu_usage}%" :halign "end"))
+      (scale :class "widget-scale" 
+             :value gpu_usage 
+             :min 0 
+             :max 100 
+             :active false))
+    (label :class "temp-label" :text "${gpu_temp}°")))
+
+;; Storage Widget
+(defwidget storage-widget []
+  (box :class "widget" :orientation "h" :space-evenly false
+    (label :class "widget-icon" :text "󰋊")
+    (box :orientation "v" :space-evenly false :hexpand true
+      (box :orientation "h"
+        (label :class "widget-label" :text "Storage" :halign "start" :hexpand true)
+        (label :class "widget-value" :text "${disk_used}/${disk_total}GB" :halign "end"))
+      (scale :class "widget-scale" 
+             :value disk_usage 
+             :min 0 
+             :max 100 
+             :active false))))
+
+;; Temperature Widget
+(defwidget temp-widget []
+  (box :class "widget" :orientation "h" :space-evenly true
+    (box :orientation "v" :spacing 2
+      (label :class "temp-big" :text "${cpu_temp}°")
+      (label :class "temp-small" :text "CPU"))
+    (box :orientation "v" :spacing 2
+      (label :class "temp-big" :text "${gpu_temp}°")
+      (label :class "temp-small" :text "GPU"))))
+
+;; Music Widget
+(defwidget music-widget []
+  (box :class "widget music" :orientation "v" :spacing 8
+    (box :orientation "h" :space-evenly false :spacing 10
+      (image :class "album-art" 
+             :path music_cover 
+             :image-width 50 
+             :image-height 50)
+      (box :orientation "v" :space-evenly false :hexpand true
+        (label :class "music-title" :text music_title :limit-width 20 :halign "start")
+        (label :class "music-artist" :text music_artist :limit-width 20 :halign "start")))
+    (box :class "music-controls" :orientation "h" :halign "center" :spacing 10
+      (button :class "music-btn" :onclick "playerctl previous" "󰒮")
+      (button :class "music-btn play" :onclick "playerctl play-pause" music_status)
+      (button :class "music-btn" :onclick "playerctl next" "󰒭"))
+    (scale :class "music-scale" 
+           :value music_position 
+           :min 0 
+           :max 100 
+           :active false)
+    (box :orientation "h"
+      (label :class "music-time" :text music_time_current :halign "start" :hexpand true)
+      (label :class "music-time" :text music_time_total :halign "end"))))
+
+;; Network Widget
+(defwidget network-widget []
+  (box :class "widget" :orientation "v" :spacing 5
+    (box :orientation "h"
+      (label :class "widget-label" :text network_ssid :halign "start" :hexpand true)
+      (label :class "widget-icon" :text network_icon))
+    (box :orientation "h" :spacing 10
+      (label :class "network-speed" :text "󰇚 ${network_down}")
+      (label :class "network-speed" :text "󰕒 ${network_up}"))
+    (button :class "network-btn" :onclick "nm-connection-editor &" "Network Settings")))
+
+;; Weather Widget
+(defwidget weather-widget []
+  (box :class "widget weather" :orientation "h" :space-evenly false :spacing 15
+    (label :class "weather-icon" :text weather_icon)
+    (box :orientation "v" :space-evenly false :hexpand true
+      (label :class "weather-temp" :text "${weather_temp}°C" :halign "start")
+      (label :class "weather-desc" :text weather_desc :halign "start")
+      (label :class "weather-loc" :text weather_location :halign "start"))))
+
+;; Variables
+(defpoll date_time :interval "1s" "date '+%A, %b %d - %I:%M %p'")
+(defpoll cpu_usage :interval "2s" "~/.config/eww/dashboard/scripts/cpu.sh usage")
+(defpoll cpu_temp :interval "2s" "~/.config/eww/dashboard/scripts/cpu.sh temp")
+(defpoll mem_usage :interval "2s" "~/.config/eww/dashboard/scripts/memory.sh usage")
+(defpoll mem_used :interval "2s" "~/.config/eww/dashboard/scripts/memory.sh used")
+(defpoll mem_total :interval "2s" "~/.config/eww/dashboard/scripts/memory.sh total")
+(defpoll gpu_usage :interval "2s" "~/.config/eww/dashboard/scripts/gpu.sh usage")
+(defpoll gpu_temp :interval "2s" "~/.config/eww/dashboard/scripts/gpu.sh temp")
+(defpoll disk_usage :interval "10s" "~/.config/eww/dashboard/scripts/disk.sh usage")
+(defpoll disk_used :interval "10s" "~/.config/eww/dashboard/scripts/disk.sh used")
+(defpoll disk_total :interval "10s" "~/.config/eww/dashboard/scripts/disk.sh total")
+(defpoll music_title :interval "1s" "playerctl metadata title 2>/dev/null || echo 'No Music'")
+(defpoll music_artist :interval "1s" "playerctl metadata artist 2>/dev/null || echo 'Unknown'")
+(defpoll music_status :interval "1s" "~/.config/eww/dashboard/scripts/music.sh status")
+(defpoll music_cover :interval "1s" "~/.config/eww/dashboard/scripts/music.sh cover")
+(defpoll music_position :interval "1s" "~/.config/eww/dashboard/scripts/music.sh position")
+(defpoll music_time_current :interval "1s" "~/.config/eww/dashboard/scripts/music.sh current")
+(defpoll music_time_total :interval "1s" "~/.config/eww/dashboard/scripts/music.sh total")
+(defpoll network_ssid :interval "5s" "~/.config/eww/dashboard/scripts/network.sh ssid")
+(defpoll network_icon :interval "5s" "~/.config/eww/dashboard/scripts/network.sh icon")
+(defpoll network_down :interval "2s" "~/.config/eww/dashboard/scripts/network.sh down")
+(defpoll network_up :interval "2s" "~/.config/eww/dashboard/scripts/network.sh up")
+(defpoll weather_temp :interval "600s" "~/.config/eww/dashboard/scripts/weather.sh temp")
+(defpoll weather_desc :interval "600s" "~/.config/eww/dashboard/scripts/weather.sh desc")
+(defpoll weather_icon :interval "600s" "~/.config/eww/dashboard/scripts/weather.sh icon")
+(defpoll weather_location :interval "600s" "~/.config/eww/dashboard/scripts/weather.sh location")
+

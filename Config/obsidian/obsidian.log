@@ -1,0 +1,34 @@
+2025-10-27 06:33:07 Loading main app package /usr/lib/obsidian/obsidian.asar
+2025-10-27 06:33:07 Checking for update using Github
+2025-10-27 06:33:08 Success.
+2025-10-27 06:33:08 Latest version is 1.9.14
+2025-10-27 06:33:08 App is up to date.
+2025-10-27 06:57:14 Loading main app package /usr/lib/obsidian/obsidian.asar
+2025-10-27 06:57:15 Checking for update using Github
+2025-10-27 06:57:15 Success.
+2025-10-27 06:57:15 Latest version is 1.9.14
+2025-10-27 06:57:15 App is up to date.
+2025-10-27 16:06:49 Loading main app package /usr/lib/obsidian/obsidian.asar
+2025-10-27 16:06:49 Checking for update using Github
+2025-10-27 16:06:50 Success.
+2025-10-27 16:06:50 Latest version is 1.9.14
+2025-10-27 16:06:50 App is up to date.
+2025-10-27 17:06:49 Checking for update using Github
+2025-10-27 17:06:49 Success.
+2025-10-27 17:06:49 Latest version is 1.9.14
+2025-10-27 17:06:49 App is up to date.
+2025-10-28 06:52:02 Loading main app package /usr/lib/obsidian/obsidian.asar
+2025-10-28 06:52:03 Checking for update using Github
+2025-10-28 06:52:06 Success.
+2025-10-28 06:52:06 Latest version is 1.9.14
+2025-10-28 06:52:06 App is up to date.
+2025-10-29 05:47:31 Loading main app package /usr/lib/obsidian/obsidian.asar
+2025-10-29 05:47:32 Checking for update using Github
+2025-10-29 05:47:34 Success.
+2025-10-29 05:47:34 Latest version is 1.9.14
+2025-10-29 05:47:34 App is up to date.
+2025-10-30 15:44:04 Loading main app package /usr/lib/obsidian/obsidian.asar
+2025-10-30 15:44:04 Checking for update using Github
+2025-10-30 15:44:04 Failed to check for update using Github (net::ERR_NAME_NOT_RESOLVED)
+2025-10-30 15:44:04 Checking for update using obsidian.md
+2025-10-30 15:44:04 Failed to check for update using obsidian.md (net::ERR_NAME_NOT_RESOLVED)

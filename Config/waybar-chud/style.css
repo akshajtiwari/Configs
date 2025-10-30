@@ -1,0 +1,136 @@
+/* =======================
+   General Bar Appearance
+========================= */
+tooltip {
+  background-color: rgba(30, 30, 30, 0.95); /* nearly opaque dark background */
+  color: #ffffff;                          /* white text for visibility */
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#custom-media {
+  background-color: rgba(50, 50, 50, 0.85);
+  color: #e0e0e0;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-weight: 600;
+  min-width: 250px;
+  /* cursor: pointer; */
+  /* user-select: none; */
+  transition: background-color 0.2s ease;
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+}
+
+#custom-media.playing {
+  color: #a3e635; /* lime green */
+}
+
+#custom-media.paused {
+  color: #facc15; /* yellow */
+}
+
+#custom-media.stopped {
+  color: #888888; /* grey */
+}
+
+#custom-media:hover {
+  background-color: rgba(80, 80, 80, 0.95);
+}
+
+* {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+  font-size: 13px;
+  color: #eaeaea;
+  background: transparent;
+}
+
+/* Make waybar background fully transparent (black background behind) */
+window#waybar {
+  background-color: transparent;
+  border: none;
+}
+
+/* =======================
+   Module Blocks Styling
+========================= */
+#clock,
+#cpu,
+#memory,
+#disk,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#tray,
+#battery,
+#custom-power,
+#custom-launcher,
+#custom-updates,
+#custom-media,
+#custom-gpu_temperature,
+#mpris,
+#custom-power {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  margin: 0 4px;
+  border-radius: 6px;
+}
+
+/* Modules grouped without hover look clean */
+#custom-updates.warning {
+  color: #ffcc00;
+}
+#custom-updates.critical {
+  color: #ff5555;
+}
+
+/* Focused workspace */
+#hyprland-workspaces button {
+  padding: 0 8px;
+  margin: 0 4px;
+  color: #888;
+  background: transparent;
+  border: none;
+}
+
+#hyprland-workspaces button.active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+/* Hover effect (optional) */
+#hyprland-workspaces button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Notifications / power button etc */
+#custom-power {
+  color: #ff5f5f;
+}
+
+/* Tray icons */
+#tray {
+  padding: 0 5px;
+  margin: 0 6px;
+}
+
+/* Battery warning levels */
+#battery.warning {
+  color: #ffcc00;
+}
+#battery.critical {
+  color: #ff4444;
+}

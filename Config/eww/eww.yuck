@@ -1,0 +1,9 @@
+(include "variables.yuck")
+(include "windows.yuck")
+
+(include "yuck/widgets.yuck")
+
+(include "yuck/panels/statusBar.yuck")
+(include "yuck/panels/controlCenter.yuck")
+(include "yuck/panels/popupIndicator.yuck")
+(include "./yuck/panels/powerMenu.yuck")

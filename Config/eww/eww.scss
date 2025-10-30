@@ -1,0 +1,17 @@
+@import "styles/globals.scss";
+
+@import "styles/StatusBar.scss";
+@import "styles/ControlCenter.scss";
+@import "styles/QuickSetting.scss";
+@import "styles/Metric.scss";
+@import "styles/Workspaces.scss";
+@import "styles/Indicator.scss";
+@import "styles/PopupIndicator.scss";
+@import "styles/WeatherWidget.scss";
+@import "styles/WeatherModule.scss";
+@import "styles/PowerMenu.scss";
+
+* {
+  all: unset;
+  font-family: "JetBrains Mono", monospace;
+}

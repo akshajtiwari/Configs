@@ -1,0 +1,79 @@
+;;; Variables
+(defvar control_center false)
+(defvar screen_record false)
+(defvar background_widgets true)
+(defvar media_index 0)
+
+;;; Polls
+
+(defpoll time 
+  :interval "10s"
+  "date '+%H:%M %b %d, %Y'"
+)
+
+(defpoll day
+  :interval "10m"
+  "date '+%A'"
+)
+
+(defpoll activity
+  :interval "3s"
+  :initial "{}"
+  "sh ~/.config/eww/scripts/activity"
+)
+
+;; Control Center Polls
+
+(defpoll volume 
+  :interval "1s"
+  :initial "{}"
+  :run-while control_center
+  "bash ~/.config/eww/scripts/volume"
+)
+
+(defpoll brightness 
+  :interval "1s"
+  :initial "{}"
+  :run-while control_center
+  "bash ~/.config/eww/scripts/brightness"
+)
+
+(defpoll interface_status
+  :interval "3s"
+  :run-while control_center
+  "rfkill -J"
+)
+
+(defpoll mic 
+  :interval "3s"
+  :run-while control_center
+  "bash ~/.config/eww/scripts/microphone"
+)
+
+(defpoll wifi_strength 
+  :interval "1m"
+  :initial "N/A"
+  :run-while control_center
+  `nmcli -t -f SIGNAL,ACTIVE device wifi \
+    | awk -F':' '{if($2=="yes")print$1}'`
+)
+
+(defpoll media 
+  :interval "1s"
+  :initial "{}"
+  :run-while control_center
+  "sh ~/.config/eww/scripts/media --eww"
+)
+
+(defpoll screen_filter
+  :interval "3s"
+  :initial "{}"
+  :run-while control_center
+  "sh ~/.config/eww/scripts/screen-filter status"
+)
+
+; Listeners
+
+(deflisten window :initial "..." "sh ~/.config/eww/scripts/get-window-title")
+(deflisten workspaces :initial "[]" "sh ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "sh ~/.config/eww/scripts/get-active-workspace")

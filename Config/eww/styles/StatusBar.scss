@@ -1,0 +1,22 @@
+.bar-main,
+.bar-external {
+  background-color: $bg;
+  color: $font-color;
+
+  border-radius: $border;
+}
+
+.leftpanel {
+  .time {
+    margin: 0 $spacing 0 $spacing;
+  }
+  .controlCenterToggle {
+    transition: background-color 255ms, color 255ms;
+    border-radius: 0 $border $border 0;
+
+    &.active {
+      background-color: $accent;
+      color: $bg-h;
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 31,
+  "spacing": 8,
+  "margin-top": 2,
+  "margin-left": 6,
+  "margin-right": 6,
+  "modules-left": [
+    "hyprland/workspaces",
+    "mpris",
+    "custom/updates"
+  ],
+  "modules-center": [
+    "clock",
+    "custom/notifications"
+  ],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "disk",
+    "backlight",
+    "pulseaudio",
+    "network",
+    "bluetooth",
+    "tray",
+    "battery",
+    "custom/power"
+  ],
+  "custom/launcher": {
+    "format": "",
+    "on-click": "wofi --show drun",
+    "tooltip": false
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  // Workspaces: spacing added, only active workspaces shown
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "spacing": 20,
+    // Removed to show only open (active) workspaces
+    // "persistent-workspaces": {
+    //     "1": [],
+    //     "2": [],
+    //     "3": [],
+    //     "4": [],
+    //     "5": []
+    // },
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "smooth-scrolling-threshold": 1
+  },
+  "mpris": {
+    "format": "{status_icon} {artist} - {title}",
+    "format-paused": "⏸ {artist} - {title}",
+    "format-stopped": "⏹ No Media",
+    "status-icons": {
+      "playing": "▶",
+      "paused": "⏸",
+      "stopped": "⏹"
+    },
+    "player-icons": {
+      "default": "🎵",
+      "mpv": "🎞",
+      "spotify": "",
+      "vlc": "嗢",
+      "firefox": "",
+      "chromium": "",
+      "brave": ""
+    },
+    "title-len": 30,
+    "dynamic-order": [
+      "artist",
+      "title"
+    ],
+    "tooltip-format": "{player_icon} {artist} - {title}\n{album}",
+    "on-click": "eww open music-player --toggle",
+    "on-click-right": "eww close music-player",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+  },
+  "clock": {
+    "format": "{:%I:%M %p}",
+    "tooltip-format": "<big>{:%A, %B %d}</big>"
+  },
+  "cpu": {
+    "format": " {}%",
+    "interval": 2,
+    "tooltip-format": "CPU Usage: {}%"
+  },
+  "memory": {
+    "format": "󰍛 {}%",
+    "interval": 2,
+    "tooltip-format": "Memory Usage: {}%"
+  },
+  "disk": {
+    "format": " {}%",
+    "interval": 30
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃟"
+    ],
+    "on-scroll-up": "brightnessctl set 5%+",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-alt": "{icon}",
+    "format-muted": "󰖁 Muted",
+    "format-icons": {
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+  },
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "",
+    "format-disconnected": "󰤮  Disconnected",
+    "tooltip-format-wifi": "{ipaddr} | {signalStrength}%",
+    "on-click": "nm-connection-editor"
+  },
+  "custom/updates": {
+    "format": "{}",
+    "interval": 900,
+    "exec": "~/.config/hypr/scripts/check_updates.sh",
+    "on-click": "kitty -e sudo pacman -Syu"
+  },
+  "bluetooth": {
+    "format": "",
+    "format-connected": " {device_alias}",
+    "format-disabled": "󰂲",
+    "tooltip-format": "Bluetooth: {device_alias}",
+    "on-click": "blueman-manager"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10
+  },
+  "custom/power": {
+    "format": "",
+    "on-click": "wlogout",
+    "tooltip": false
+  }
+}

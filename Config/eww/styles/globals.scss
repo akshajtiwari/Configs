@@ -1,0 +1,198 @@
+// Colors
+$fg1: #ebdbb2;
+$bg: #282828;
+$bg2: #504945;
+$bg-h: #1d2021;
+$gray: #a89984;
+$red: #fb4934;
+$blue: #83a598;
+// $purple: #8064b4;
+$purple: #826aaf;
+$purple-gradient: linear-gradient(to right, $purple 10%, #bca4e8 100%);
+
+$accent: $purple;
+$font-color: $fg1;
+// $workspace-active: lighten($purple, 15%);
+$font-disabled: $gray;
+$font-large: 2em;
+$font-normal: 1.4em;
+$font-small: 0.8em;
+
+$border: 0.4em;
+$spacing-small: 2px;
+$spacing: 5px;
+$spacing-medium: 10px;
+$spacing-large: 15px;
+
+// Styles
+
+tooltip {
+  background-color: $bg;
+  border-radius: $border;
+  border: 2px solid $gray;
+  color: $font-color;
+}
+
+calendar {
+  background-color: $bg;
+  border-radius: $border;
+  color: $font-color;
+
+  &.button {
+    margin: 1em;
+  }
+  :selected {
+    background-color: $accent;
+    color: $bg-h;
+  }
+}
+
+progressbar {
+  margin: $spacing $spacing-small 0 $spacing-small;
+
+  trough {
+    background-color: $bg2;
+    border-radius: $border;
+    // min-height: $spacing;
+
+    progress {
+      // background-color: $accent;
+      background: $purple-gradient;
+      border-radius: $border;
+    }
+  }
+}
+
+.button {
+  min-width: 32px;
+
+  &.lock {
+    color: $accent;
+  }
+  &.shutdown {
+    color: $red;
+  }
+  &.restart {
+    color: $gray;
+  }
+  &.suspend {
+    color: $blue;
+  }
+  &.hibernate {
+    color: $blue;
+  }
+
+  label {
+    font-size: $font-normal;
+    margin-right: 4px;
+  }
+}
+
+.hover {
+  // border-radius: $border;
+  transition: background-color 255ms, color 255ms;
+
+  &.light {
+    background-color: $bg2;
+  }
+
+  &:hover {
+    background: $purple-gradient;
+
+    &.solid {
+      background: $accent;
+    }
+
+    background-color: $accent;
+    color: $bg-h;
+  }
+}
+
+//
+// System Tray
+//
+
+.systemTray {
+  padding: $spacing;
+
+  // background-color: $bg2;
+  // border-radius: 0 $border $border 0;
+  border-radius: $border;
+
+  widget {
+    -gtk-icon-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  menu {
+    border-radius: $border;
+    padding: $spacing 0;
+    color: $font-color;
+
+    background-color: $bg;
+    border: 2px solid $gray;
+
+    > menuitem {
+      padding: 0px $spacing;
+      transition: background 255ms, color 255ms;
+
+      &:disabled label {
+        color: $font-disabled;
+      }
+
+      &:hover {
+        background: $purple-gradient;
+        color: $bg-h;
+      }
+    }
+
+    // Dropdown Arrow
+    menuitem arrow {
+      min-width: 16px;
+      min-height: 16px;
+
+      &:dir(ltr) {
+        -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+        margin-left: 10px;
+        margin-right: 0;
+      }
+    }
+
+    // Checkbox
+    menuitem check {
+      border: 1px solid;
+      border-radius: 0.2em;
+      color: $font-color;
+      min-width: 14px;
+      min-height: 14px;
+      margin-right: 4px;
+
+      &:checked {
+        color: $font-color;
+        -gtk-icon-source: -gtk-icontheme("checkmark");
+      }
+    }
+
+    separator {
+      background-color: $bg2;
+      padding-top: 1px;
+
+      &:last-child {
+        padding: unset;
+      }
+    }
+  }
+}
+
+// Keyframes
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
