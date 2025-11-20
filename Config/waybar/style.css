@@ -48,6 +48,7 @@ window#waybar {
 #cpu,
 #memory,
 #workspaces,
+#mpris,
 #tray,
 #backlight {
     background: #1e1e2e;
@@ -73,6 +74,14 @@ window#waybar {
     padding-right: 0px;
     padding-left: 5px;
 }
+#mpris {
+    background: #1e1e2e;
+    border-radius: 10px;
+    margin-left: 10px;
+    padding-right: 0px;
+    padding-left: 5px;
+}
+
 
 #cpu {
     border-radius: 0px 10px 10px 0px;

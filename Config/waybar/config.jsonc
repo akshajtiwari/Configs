@@ -9,7 +9,8 @@
   "modules-left": [
     "clock",
     "hyprland/workspaces",
-    "custom/dashboard"
+    "custom/dashboard",
+    "mpris"
   ],
   "modules-center": [
     "hyprland/window"
@@ -55,6 +56,19 @@
         "days": "<span color='#555869'><b>{}</b></span>"
       }
     }
+  },
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "⏸",
+      "mpv": "🎵"
+    },
+    "status-icons": {
+      "paused": "▶"
+    },
+    "dynamic-len": 35,
+    "title-len": 20
   },
   "backlight": {
     "device": "intel_backlight",
