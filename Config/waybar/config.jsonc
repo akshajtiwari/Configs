@@ -9,7 +9,7 @@
   "modules-left": [
     "clock",
     "hyprland/workspaces",
-    "custom/dashboard",
+    // "custom/dashboard",
     "mpris"
   ],
   "modules-center": [
@@ -188,9 +188,9 @@
     "tooltip-format": "Bluetooth: {device_alias}",
     "on-click": "blueman-manager"
   },
-  "custom/dashboard": {
-    "format": " ",
-    "on-click": "~/.config/eww/dashboard/scripts/toggle.sh",
-    "tooltip": false
-  }
+  // "custom/dashboard": {
+  //   "format": " ",
+  //   "on-click": "/home/akshajtiwari/.config/quickshell/scripts/controlcenter.sh",
+  //   "tooltip": false
+  // }
 }

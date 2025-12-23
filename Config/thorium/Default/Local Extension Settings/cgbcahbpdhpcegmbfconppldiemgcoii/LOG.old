@@ -1,0 +1,21 @@
+2025/12/22-19:55:28.788 fa4 Reusing MANIFEST /home/akshajtiwari/.config/thorium/Default/Local Extension Settings/cgbcahbpdhpcegmbfconppldiemgcoii/MANIFEST-000001
+2025/12/22-19:55:28.788 fa4 Recovering log #37
+2025/12/22-19:55:28.805 fa4 Reusing old log /home/akshajtiwari/.config/thorium/Default/Local Extension Settings/cgbcahbpdhpcegmbfconppldiemgcoii/000037.log 
+2025/12/22-19:56:06.813 fa3 Level-0 table #41: started
+2025/12/22-19:56:06.832 fa3 Level-0 table #41: 4819572 bytes OK
+2025/12/22-19:56:06.838 fa3 Delete type=0 #37
+2025/12/22-19:56:06.838 fa3 Compacting 4@0 + 1@1 files
+2025/12/22-19:56:06.858 fa3 Generated table #42@0: 4 keys, 2713923 bytes
+2025/12/22-19:56:06.870 fa3 Generated table #43@0: 6 keys, 3129374 bytes
+2025/12/22-19:56:06.880 fa3 Generated table #44@0: 10 keys, 2136349 bytes
+2025/12/22-19:56:06.885 fa3 Generated table #45@0: 4 keys, 148440 bytes
+2025/12/22-19:56:06.885 fa3 Compacted 4@0 + 1@1 files => 8128086 bytes
+2025/12/22-19:56:06.890 fa3 compacted to: files[ 0 4 5 0 0 0 0 ]
+2025/12/22-19:56:06.890 fa3 Delete type=2 #38
+2025/12/22-19:56:06.890 fa3 Delete type=2 #33
+2025/12/22-19:56:06.890 fa3 Delete type=2 #35
+2025/12/22-19:56:06.890 fa3 Delete type=2 #31
+2025/12/22-19:56:06.890 fa3 Delete type=2 #41
+2025/12/22-19:56:07.688 fa3 Level-0 table #47: started
+2025/12/22-19:56:07.709 fa3 Level-0 table #47: 5362701 bytes OK
+2025/12/22-19:56:07.715 fa3 Delete type=0 #40

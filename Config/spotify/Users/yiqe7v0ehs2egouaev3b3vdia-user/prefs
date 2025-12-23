@@ -1,0 +1,12 @@
+audio.play_bitrate_non_metered_migrated=true
+connect.dial_devices="[]"
+connect.mdns_devices="[]"
+audio.crossfade_v2=true
+audio.downmixer_v2=true
+audio.equalizer_v2=true
+ui.minimize_to_tray=true
+ui.track_notifications_enabled=false
+audio.play_bitrate_non_metered_enumeration=4
+audio.crossfade.time_v2=6000
+audio.play_bitrate_enumeration=4
+ui.hide_hpto=true
