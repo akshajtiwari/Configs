@@ -33,7 +33,7 @@
     "disable-scroll": true,
     "all-outputs": true,
     "on-click": "activate"
-    //"format": "{icon}",
+    //"format": "{icon}",  
   },
   "tray": {
     "icon-size": 13,
@@ -78,8 +78,8 @@
       "󰃟",
       "󰃠"
     ],
-    "on-scroll-up": "brightnessctl set 3%+",
-    "on-scroll-down": "brightnessctl set 3%-",
+    "on-scroll-up": "brightnessctl set 3%-",
+    "on-scroll-down": "brightnessctl set 3%+",
     "min-length": 6
   },
   "battery": {
