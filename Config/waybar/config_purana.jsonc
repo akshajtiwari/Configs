@@ -27,8 +27,7 @@
     "pulseaudio#microphone"
   ],
   "hyprland/window": {
-    "format": "󰣇 {}",
-    "on-click": "wlogout"
+    "format": "󰣇 {}"
   },
   "hyprland/workspaces": {
     "disable-scroll": true,

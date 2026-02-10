@@ -299,3 +299,4 @@ clock-tui v0.6.1:
     tclock
 mpris-notifier v0.2.1:
     mpris-notifier
+npm
