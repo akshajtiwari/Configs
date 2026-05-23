@@ -43,7 +43,7 @@ jobs:
           echo "---"
           echo "DEB URL would be: https://github.com/AOSSIE-Org/PictoPy/releases/download/${{ steps.version.outputs.latest_version }}/PictoPy_${{ steps.version.outputs.latest_version }}_amd64.deb"
 
-test_pkgbuild_update:
+  test_pkgbuild_update:
     runs-on: ubuntu-latest
     needs: test_version_fetch
     steps:
