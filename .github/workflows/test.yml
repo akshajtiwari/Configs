@@ -40,6 +40,8 @@ jobs:
         run: |
           echo "Version: ${{ steps.version.outputs.latest_version }}"
           echo "SHA: ${{ steps.sha.outputs.sha }}"
+          echo "---"
+          echo "DEB URL would be: https://github.com/AOSSIE-Org/PictoPy/releases/download/${{ steps.version.outputs.latest_version }}/PictoPy_${{ steps.version.outputs.latest_version }}_amd64.deb"
 
   test_pkgbuild_update:
     runs-on: ubuntu-latest
@@ -47,6 +49,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          repository: AOSSIE-Org/PictoPy
 
       - name: Simulate PKGBUILD sed replacements
         run: |
