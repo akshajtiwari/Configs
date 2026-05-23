@@ -1,0 +1,99 @@
+name: Test Workflow Components
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_version_fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch latest version from GitHub API
+        id: version
+        run: |
+          LATEST_VERSION=$(curl -fsSL https://api.github.com/repos/AOSSIE-Org/PictoPy/releases/latest \
+            | grep -oP '(?<="tag_name": "v)[^"]+')
+          echo "Fetched version: $LATEST_VERSION"
+          # Fail if empty
+          if [ -z "$LATEST_VERSION" ]; then
+            echo "ERROR: Could not fetch version"
+            exit 1
+          fi
+          echo "latest_version=$LATEST_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch SHA256 of deb
+        id: sha
+        run: |
+          VERSION="${{ steps.version.outputs.latest_version }}"
+          DEB_URL="https://github.com/AOSSIE-Org/PictoPy/releases/download/v${VERSION}/PictoPy_${VERSION}_amd64.deb"
+          echo "Downloading from: $DEB_URL"
+          SHA=$(curl -fsSL "$DEB_URL" | sha256sum | cut -d' ' -f1)
+          echo "Computed SHA256: $SHA"
+          # Fail if empty
+          if [ -z "$SHA" ]; then
+            echo "ERROR: SHA256 came out empty — URL might be wrong"
+            exit 1
+          fi
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Verify outputs are set
+        run: |
+          echo "Version: ${{ steps.version.outputs.latest_version }}"
+          echo "SHA: ${{ steps.sha.outputs.sha }}"
+
+  test_pkgbuild_update:
+    runs-on: ubuntu-latest
+    needs: test_version_fetch
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Simulate PKGBUILD sed replacements
+        run: |
+          VERSION="1.2.3"
+          SHA="abc123def456"
+          cp publishing/PKGBUILD publishing/PKGBUILD.bak
+          sed -i "s/^pkgver=.*/pkgver=$VERSION/" publishing/PKGBUILD
+          sed -i "s/^pkgrel=.*/pkgrel=1/" publishing/PKGBUILD
+          sed -i "s/sha256sums=.*/sha256sums=('$SHA')/" publishing/PKGBUILD
+          echo "--- Updated PKGBUILD ---"
+          cat publishing/PKGBUILD
+          # Verify the replacements actually worked
+          grep "pkgver=$VERSION" publishing/PKGBUILD || { echo "ERROR: pkgver not updated"; exit 1; }
+          grep "pkgrel=1" publishing/PKGBUILD || { echo "ERROR: pkgrel not updated"; exit 1; }
+          grep "sha256sums=('$SHA')" publishing/PKGBUILD || { echo "ERROR: sha256sums not updated"; exit 1; }
+          echo "All sed replacements verified"
+
+  test_artifact_paths:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create dummy files
+        run: |
+          mkdir -p publishing
+          echo "pkgver=1.0.0" > publishing/PKGBUILD
+          echo "dummy install" > publishing/pictopy-bin.install
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: PKGBUILD
+          path: |
+            publishing/PKGBUILD
+            publishing/pictopy-bin.install
+
+  test_artifact_download:
+    runs-on: ubuntu-latest
+    needs: test_artifact_paths
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: PKGBUILD
+          path: publishing/
+
+      - name: Verify paths and contents
+        run: |
+          find . -type f | sort
+          echo "--- Checking expected files exist ---"
+          test -f ./publishing/PKGBUILD || { echo "ERROR: PKGBUILD not found"; exit 1; }
+          test -f ./publishing/pictopy-bin.install || { echo "ERROR: install file not found"; exit 1; }
+          echo "All files in expected paths"
