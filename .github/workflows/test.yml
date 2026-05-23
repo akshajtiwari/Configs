@@ -6,14 +6,16 @@ on:
 jobs:
   test_version_fetch:
     runs-on: ubuntu-latest
+    outputs:
+      latest_version: ${{ steps.version.outputs.latest_version }}
+      sha: ${{ steps.sha.outputs.sha }}
     steps:
       - name: Fetch latest version from GitHub API
         id: version
         run: |
           LATEST_VERSION=$(curl -fsSL https://api.github.com/repos/AOSSIE-Org/PictoPy/releases/latest \
-            | grep -oP '(?<="tag_name": "v)[^"]+')
+            | grep -oP '(?<="tag_name": ")[^"]+')
           echo "Fetched version: $LATEST_VERSION"
-          # Fail if empty
           if [ -z "$LATEST_VERSION" ]; then
             echo "ERROR: Could not fetch version"
             exit 1
@@ -24,11 +26,10 @@ jobs:
         id: sha
         run: |
           VERSION="${{ steps.version.outputs.latest_version }}"
-          DEB_URL="https://github.com/AOSSIE-Org/PictoPy/releases/download/v${VERSION}/PictoPy_${VERSION}_amd64.deb"
+          DEB_URL="https://github.com/AOSSIE-Org/PictoPy/releases/download/${VERSION}/PictoPy_${VERSION}_amd64.deb"
           echo "Downloading from: $DEB_URL"
           SHA=$(curl -fsSL "$DEB_URL" | sha256sum | cut -d' ' -f1)
           echo "Computed SHA256: $SHA"
-          # Fail if empty
           if [ -z "$SHA" ]; then
             echo "ERROR: SHA256 came out empty — URL might be wrong"
             exit 1
@@ -57,7 +58,6 @@ jobs:
           sed -i "s/sha256sums=.*/sha256sums=('$SHA')/" publishing/PKGBUILD
           echo "--- Updated PKGBUILD ---"
           cat publishing/PKGBUILD
-          # Verify the replacements actually worked
           grep "pkgver=$VERSION" publishing/PKGBUILD || { echo "ERROR: pkgver not updated"; exit 1; }
           grep "pkgrel=1" publishing/PKGBUILD || { echo "ERROR: pkgrel not updated"; exit 1; }
           grep "sha256sums=('$SHA')" publishing/PKGBUILD || { echo "ERROR: sha256sums not updated"; exit 1; }
