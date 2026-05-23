@@ -43,7 +43,7 @@ jobs:
           echo "---"
           echo "DEB URL would be: https://github.com/AOSSIE-Org/PictoPy/releases/download/${{ steps.version.outputs.latest_version }}/PictoPy_${{ steps.version.outputs.latest_version }}_amd64.deb"
 
-  test_pkgbuild_update:
+test_pkgbuild_update:
     runs-on: ubuntu-latest
     needs: test_version_fetch
     steps:
@@ -54,8 +54,10 @@ jobs:
 
       - name: Simulate PKGBUILD sed replacements
         run: |
-          VERSION="1.2.3"
-          SHA="abc123def456"
+          VERSION="${{ needs.test_version_fetch.outputs.latest_version }}"
+          SHA="${{ needs.test_version_fetch.outputs.sha }}"
+          echo "Using version: $VERSION"
+          echo "Using SHA: $SHA"
           cp publishing/PKGBUILD publishing/PKGBUILD.bak
           sed -i "s/^pkgver=.*/pkgver=$VERSION/" publishing/PKGBUILD
           sed -i "s/^pkgrel=.*/pkgrel=1/" publishing/PKGBUILD
