@@ -68,7 +68,7 @@ test_pkgbuild_update:
           grep "pkgrel=1" publishing/PKGBUILD || { echo "ERROR: pkgrel not updated"; exit 1; }
           grep "sha256sums=('$SHA')" publishing/PKGBUILD || { echo "ERROR: sha256sums not updated"; exit 1; }
           echo "All sed replacements verified"
-
+          
   test_artifact_paths:
     runs-on: ubuntu-latest
     steps:
